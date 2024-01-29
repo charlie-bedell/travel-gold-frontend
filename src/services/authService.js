@@ -1,4 +1,5 @@
 import * as tokenService from "./tokenService.js";
+import axios from "axios";
 
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/api/auth`;
 
@@ -8,11 +9,12 @@ function getUser() {
 
 async function signup(user) {
   try {
-    const res = await fetch(`${BASE_URL}/signup`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user),
-    });
+    const res = await axios.post(`${BASE_URL}/signup`,JSON.stringify(user));
+    // const res = await fetch(`${BASE_URL}/signup`, {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(user),
+    // });
     const json = await res.json();
     if (json.token) {
       tokenService.setToken(json.token);
@@ -28,11 +30,13 @@ async function signup(user) {
 }
 
 async function login(credentials) {
-  const res = await fetch(`${BASE_URL}/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(credentials),
-  });
+  // const res = await fetch(`${BASE_URL}/login`, {
+  //   method: "POST",
+  //   headers: { "Content-Type": "application/json" },
+  //   body: JSON.stringify(credentials),
+  // });
+
+  const res = await axios.post(`${BASE_URL}/login`,JSON.stringify(credentials));
   const json = await res.json();
 
   if (json.token) {
