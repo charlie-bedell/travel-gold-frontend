@@ -10,12 +10,7 @@ function getUser() {
 async function signup(user) {
   try {
     const res = await axios.post(`${BASE_URL}/signup`,JSON.stringify(user),{ headers: {"Content-Type": "application/json"}});
-    // const res = await fetch(`${BASE_URL}/signup`, {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(user),
-    // });
-    const json = await res.json();
+    const json = res.data;
     if (json.token) {
       tokenService.setToken(json.token);
       return json.token;
@@ -30,14 +25,9 @@ async function signup(user) {
 }
 
 async function login(credentials) {
-  // const res = await fetch(`${BASE_URL}/login`, {
-  //   method: "POST",
-  //   headers: { "Content-Type": "application/json" },
-  //   body: JSON.stringify(credentials),
-  // });
-  
   const res = await axios.post(`${BASE_URL}/login`, JSON.stringify(credentials), { headers: {"Content-Type": "application/json"}});
-  const json = await res.json();
+  
+  const json = res.data;
 
   if (json.token) {
     tokenService.setToken(json.token);
