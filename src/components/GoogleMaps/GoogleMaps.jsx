@@ -87,6 +87,8 @@ const GoogleMaps = () => {
       `${import.meta.env.VITE_BACK_END_SERVER_URL}/itineraries/${itineraryId}`,
       {
         name: itinerary.itineraryName,
+        lat: center.lat,
+        lng: center.lng
       },
       {
         headers: {
@@ -154,7 +156,7 @@ const GoogleMaps = () => {
   };
 
   const handleSearchSubmit = (e) => {
-    console.log(e);
+
     fetchNearbyPlaces(center.lat, center.lng, searchQuery);
   };
 
@@ -181,7 +183,7 @@ const GoogleMaps = () => {
       if (place.geometry.viewport) {
         map.fitBounds(place.geometry.viewport);
       } else {
-        console.log(place.geometry);
+        
         map.setCenter(center);
         map.setZoom(17);
       }

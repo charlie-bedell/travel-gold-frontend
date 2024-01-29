@@ -41,6 +41,8 @@ const SearchPage = () => {
         locationName: searchResults.place.name,
         startDate: searchResults.startDate.$d,
         endDate: searchResults.endDate.$d,
+        lat: searchResults.place.lat,
+        lng: searchResults.place.lng
       },
       {
         headers: {
@@ -48,9 +50,6 @@ const SearchPage = () => {
         },
       }
     );
-
-    console.log(response.data, localStorage.getItem('token'));
-
     const itineraryId = response.data.itineraryId;
     navigate("/createItinerary", { state: { searchResults, itineraryId } });
   };
@@ -86,8 +85,7 @@ const SearchPage = () => {
         const name = place.name;
         const place_id = place.place_id;
 
-        console.log(lat, lng);
-        console.log(place);
+   
 
         setSearchResults((prevResults) => ({
           ...prevResults,
@@ -117,7 +115,7 @@ const SearchPage = () => {
         {/* Replace video with img */}
         <img src={photo} alt="Background" className={styles.planeBg} />
         <div className={styles.headerContainer}>
-          <h1 className={styles.header}> WELCOME BACK!</h1>
+          <h1 className={styles.header}> READY FOR YOUR NEXT ADVENTURE?</h1>
           <h1 className={styles.subHeader}>
             {" "}
              Let's Get You Set Up For Your Next Get Away. 
